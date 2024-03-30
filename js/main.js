@@ -1,25 +1,34 @@
 const NAV = document.getElementById("nav");
 const CONTENT = document.getElementById("content");
+const NAVCONTENT = document.getElementById("navContent");
 
 let nowBible = {
-    book: "창",
-    chapter: "1"
+    book: "신",
+    chapter: "6"
 }
+let contentData;
 let isNavOpen = false;
 let isNavTouch = false;
+let isTouchMove = false;
 let startTouchPosY;
 let nowTouchPosY;
 let startNavPos = NAV.getBoundingClientRect().top;
 let nowNavPos;
 
-
-let contentData = "<table>";
-for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
-    contentData += `<tr><td><b>${i}</b></td><td>${bibles[nowBible.book][nowBible.chapter][i]}</td></tr>`;
+function setBible() {
+    for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
+        if (i == 1) {
+            contentData = "<table>"
+        }
+        contentData += `<tr><td><b>${i}</b></td><td>${bibles[nowBible.book][nowBible.chapter][i]}</td></tr>`;
+        if (i == Object.keys(bibles[nowBible.book][nowBible.chapter]).length) {
+            contentData += "</table><br><br><br><br><br>";
+        }
+    }
+    CONTENT.innerHTML = contentData;
+    document.getElementById("navNowBible").innerHTML = `${booksLN[booksSN.indexOf(nowBible.book)]} ${nowBible.chapter}장`
 }
-contentData += "</table>";
-
-CONTENT.innerHTML = contentData;
+setBible();
 
 NAV.addEventListener("touchstart", e => {
     isNavTouch = true;
@@ -30,15 +39,17 @@ NAV.addEventListener("touchstart", e => {
 NAV.addEventListener("touchend", e => {
     isNavTouch = false;
     CONTENT.style.overflowY = "auto";
-    if (isNavOpen) {
+    if (isTouchMove && isNavOpen) {
         setAnimation("moveNav", "block", "20%");
-    } else {
+    } else if (isTouchMove) {
         setAnimation("moveNav", "none", "calc(100% - 95px)");
     }
+    isTouchMove = false;
 });
 
 NAV.addEventListener("touchmove", e => {
     if (isNavTouch) {
+        isTouchMove = true;
         nowTouchPosY = e.touches[0].clientY;
         nowNavPos = NAV.getBoundingClientRect().top;        
         NAV.style.top = `clamp(0%, ${startNavPos - (startTouchPosY - nowTouchPosY)}px, calc(100% - 80px))`;     
@@ -84,6 +95,15 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
                 fill: "forwards"
             }
         );
+        if (br == "0") {
+            NAVCONTENT.innerHTML = `
+            <input id=\"biblebk\"><br>
+            <input id=\"biblech\"><br>
+            <button onclick=\"setBook();\">GO</button>
+            `;
+        } else {
+            NAVCONTENT.innerHTML = '';
+        }
     } else if (ani == "moveNav") {
         document.getElementById("back").style.display = width;
         NAV.animate(
@@ -115,4 +135,10 @@ function openSearch() {
     } else {
         navigator.vibrate(10);
     }
+}
+
+function setBook() {
+    nowBible.book = document.getElementById("biblebk").value;
+    nowBible.chapter = document.getElementById("biblech").value;
+    setBible();
 }

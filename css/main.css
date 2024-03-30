@@ -83,6 +83,13 @@ html, body {
     left: 15px;
 }
 
+#navContent {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    font-size: 20px;
+}
+
 td {
     /* word-break: keep-all; */
     padding: 10px 5px;
@@ -98,5 +105,5 @@ td {
 
 @font-face {
     font-family: 'nanumSQ';
-    src: url('/font/NanumSquareNeo-bRg.ttf');
+    src: url('../font/NanumSquareNeo-bRg.ttf');
 }
