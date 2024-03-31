@@ -3,10 +3,11 @@ const CONTENT = document.getElementById("content");
 const NAVCONTENT = document.getElementById("navContent");
 
 let nowBible = {
-    book: "신",
-    chapter: "6"
+    book: "창",
+    chapter: "1"
 }
 let contentData;
+let isNavShow = false;
 let isNavOpen = false;
 let isNavTouch = false;
 let isTouchMove = false;
@@ -26,7 +27,7 @@ function setBible() {
         }
     }
     CONTENT.innerHTML = contentData;
-    document.getElementById("navNowBible").innerHTML = `${booksLN[booksSN.indexOf(nowBible.book)]} ${nowBible.chapter}장`
+    document.getElementById("navTitle").innerHTML = `${booksLN[booksSN.indexOf(nowBible.book)]} ${nowBible.chapter}장`
 }
 setBible();
 
@@ -39,16 +40,16 @@ NAV.addEventListener("touchstart", e => {
 NAV.addEventListener("touchend", e => {
     isNavTouch = false;
     CONTENT.style.overflowY = "auto";
-    if (isTouchMove && isNavOpen) {
+    if (isTouchMove && isNavOpen && isNavShow) {
         setAnimation("moveNav", "block", "20%");
-    } else if (isTouchMove) {
+    } else if (isTouchMove && isNavShow) {
         setAnimation("moveNav", "none", "calc(100% - 95px)");
     }
     isTouchMove = false;
 });
 
 NAV.addEventListener("touchmove", e => {
-    if (isNavTouch) {
+    if (isNavTouch && isNavShow) {
         isTouchMove = true;
         nowTouchPosY = e.touches[0].clientY;
         nowNavPos = NAV.getBoundingClientRect().top;        
@@ -81,20 +82,16 @@ function closeNav() {
 
 function setAnimation(ani, width, heigth, left, br) { // width, height => display, top
     if (ani == "setNav") {
+        let temp = { width: width, height: heigth, left: left, borderBottomLeftRadius: br, borderBottomRightRadius: br }
         navigator.vibrate(10);
-        NAV.animate(
+        NAV.animate(temp,
             {
-                width: width,
-                height: heigth,
-                left: left,
-                borderBottomLeftRadius: br,
-                borderBottomRightRadius: br
-            }, {
                 duration: 300,
-                easing: "ease",
-                fill: "forwards"
+                easing: "ease"
             }
-        );
+        ).onfinish = e => {
+            Object.assign(NAV.style, temp);
+        }
         if (br == "0") {
             NAVCONTENT.innerHTML = `
             <input id=\"biblebk\"><br>
@@ -113,11 +110,10 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
                 duration: 300,
                 easing: "ease",
             }
-        );
-        setTimeout(() => {
+        ).onfinish = e => {
             NAV.style.top = heigth;
             startNavPos = NAV.getBoundingClientRect().top;
-        }, 290);
+        }
     }
 }
 
@@ -141,4 +137,40 @@ function setBook() {
     nowBible.book = document.getElementById("biblebk").value;
     nowBible.chapter = document.getElementById("biblech").value;
     setBible();
+}
+
+function setShowNav() {
+    if (!isNavShow && !isNavOpen) {
+        setShowAnimation("rotate(0deg)", "rotate(0deg)", "10px", "25px", "80px", "visible", "1", "50px", "calc(100% - 30px)", "15px", "calc(100% - 95px)", true);        
+    } else if (!isNavOpen) {
+        setShowAnimation("rotate(-30deg)", "rotate(30deg)", "-20px", "15px", "40px", "hidden", "0", "10px", "150px", "calc(50% - 75px)", "calc(100% - 55px)", false);
+    }
+}
+
+function setShowAnimation(barRotR, barRotL, barTop, font, height, visible, opacity, btnwh, width, left, top, bool) {
+    navigator.vibrate(10);
+    let temp = {};
+    document.getElementById("navBarR").style.transform = barRotR;
+    document.getElementById("navBarL").style.transform = barRotL;
+    document.getElementById("navBarR").style.top = barTop;
+    document.getElementById("navBarL").style.top = barTop;
+
+    document.getElementById("navTitle").style.fontSize = font;
+    document.getElementById("navTitle").style.lineHeight = height;
+
+    temp = { visibility: visible, opacity: opacity, width: btnwh, height: btnwh }
+    Object.assign(document.getElementById("navSetting").style, temp);
+    Object.assign(document.getElementById("navSearch").style, temp);
+    temp = { width: width, height: height, left: left, top: top }
+    NAV.animate(temp,
+        {
+            duration: 300,
+            easing: "ease"
+        }
+    ).onfinish = e => {
+        Object.assign(NAV.style, temp);
+        startNavPos = NAV.getBoundingClientRect().top
+
+        isNavShow = bool;
+    }
 }
