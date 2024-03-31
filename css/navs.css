@@ -1,0 +1,22 @@
+.navSetting {
+    width: calc(100% - 50px);
+    height: 80px;
+    border-radius: 35px;
+    margin-bottom: 15px;
+    line-height: 80px;
+    padding: 0px 25px;
+    font-size: 25px;
+    color: #fcfcfc;
+    font-weight: bold;
+
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+@media (prefers-color-scheme: light) {
+    .navSetting {
+        background: rgba(76, 76, 76, 0.5);
+    }
+}

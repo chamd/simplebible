@@ -2,13 +2,13 @@ html, body {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: #4c4c4c;
+    background-color: #282828;
     font-family: 'nanumSQ';
     overflow-y: hidden;
 }
 
 #content {
-    color: white;
+    color: #fcfcfc;
     font-size: 20px;
     width: calc(100% - 20px);
     height: 100%;
@@ -25,8 +25,7 @@ html, body {
     border-radius: 35px;
 
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1),
-            0px 0px 0px 0.5px rgba(255, 255, 255, 0.7) inset;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
 }
@@ -35,7 +34,7 @@ html, body {
     position: absolute;
     width: 15px;
     height: 5px;
-    background-color: white;
+    background-color: #fcfcfc;
     display: block;
     border-radius: 10px;
     top: -20px;
@@ -77,9 +76,9 @@ html, body {
     top: 15px;
     border-radius: 50%;
     border: none;
-    background-color: white;
+    background-color: #fcfcfc;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    color: #4c4c4c;
+    color: #282828;
     font-size: 20px;
     transition: .3s ease;
 }
@@ -99,8 +98,8 @@ html, body {
 #navContent {
     position: absolute;
     top: 80px;
-    left: 10px;
-    width: calc(100% - 20px);
+    left: 15px;
+    width: calc(100% - 30px);
     height: calc(80% - 80px);
 }
 
@@ -120,4 +119,25 @@ td {
 @font-face {
     font-family: 'nanumSQ';
     src: url('../font/NanumSquareNeo-bRg.ttf');
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #fcfcfc;
+    }
+    #content {
+        color: #282828;
+    }
+    #nav {
+        background: rgba(200, 200, 200, 0.5);
+    }
+    #navBarR {
+        background-color: #4c4c4c;
+    }
+    #navBarL {
+        background-color: #4c4c4c;
+    }
+    #navTitle {
+        color: #4c4c4c;
+    }
 }

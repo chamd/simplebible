@@ -15,6 +15,7 @@ let startTouchPosY;
 let nowTouchPosY;
 let startNavPos = NAV.getBoundingClientRect().top;
 let nowNavPos;
+let nowNavMode = "main"; // search, setting, main
 
 function setBible() {
     for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
@@ -55,6 +56,7 @@ NAV.addEventListener("touchmove", e => {
         nowNavPos = NAV.getBoundingClientRect().top;        
         NAV.style.top = `clamp(0%, ${startNavPos - (startTouchPosY - nowTouchPosY)}px, calc(100% - 80px))`;     
         if (document.body.clientHeight - nowNavPos >= 200 && !isNavOpen) {
+            nowNavMode = "main";
             setAnimation("setNav", "100%", "100%", "0", "0");
             isNavOpen = !isNavOpen;
         } else if (document.body.clientHeight - nowNavPos < 200 && isNavOpen) {
@@ -64,11 +66,18 @@ NAV.addEventListener("touchmove", e => {
     }
 });
 
-function openNav() {
+function openNav(mode) {
     if (!isNavOpen) {
+        nowNavMode = mode;
         setAnimation("setNav", "100%", "100%", "0", "0");
         setAnimation("moveNav", "block", "20%");
         isNavOpen = !isNavOpen;
+    } else {
+        navigator.vibrate(10);
+        if (nowNavMode != mode) {
+            nowNavMode = mode;
+            NAVCONTENT.innerHTML = navs[mode];
+        }
     }
 }
 
@@ -93,11 +102,11 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
             Object.assign(NAV.style, temp);
         }
         if (br == "0") {
-            NAVCONTENT.innerHTML = `
-            <input id=\"biblebk\"><br>
-            <input id=\"biblech\"><br>
-            <button onclick=\"setBook();\">GO</button>
-            `;
+            if (nowNavMode == "main") {
+                NAVCONTENT.innerHTML = navs.main
+            } else if (nowNavMode == "setting") {
+                NAVCONTENT.innerHTML = navs.setting;
+            }
         } else {
             NAVCONTENT.innerHTML = '';
         }
@@ -114,22 +123,6 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
             NAV.style.top = heigth;
             startNavPos = NAV.getBoundingClientRect().top;
         }
-    }
-}
-
-function openSetting() {
-    if (!isNavOpen) {
-        openNav();
-    } else {
-        navigator.vibrate(10);
-    }
-}
-
-function openSearch() {
-    if (!isNavOpen) {
-        openNav();
-    } else {
-        navigator.vibrate(10);
     }
 }
 
@@ -172,5 +165,19 @@ function setShowAnimation(barRotR, barRotL, barTop, font, height, visible, opaci
         startNavPos = NAV.getBoundingClientRect().top
 
         isNavShow = bool;
+    }
+}
+
+function setWordbreak(index) {
+    if (index == 1) {
+        for (let i = 0; i < document.querySelectorAll("td").length; i++) {
+            const e = document.querySelectorAll("td")[i];
+            e.style.wordBreak = "keep-all";
+        }
+    } else {
+        for (let i = 0; i < document.querySelectorAll("td").length; i++) {
+            const e = document.querySelectorAll("td")[i];
+            e.style.wordBreak = "normal";
+        }
     }
 }

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Bible</title>
+    <title>Simple Bible</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/navs.css">
 </head>
 <body>
     <div id="back" onclick="closeNav();"></div>
@@ -19,13 +19,13 @@
         
         <div id="showNav" onclick="setShowNav();"></div>
 
-        <button id="navSearch" onclick="openSearch();">
+        <button id="navSearch" onclick="openNav('search');">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
         <div id="navTitle"></div>
 
-        <button id="navSetting" onclick="openSetting();">
+        <button id="navSetting" onclick="openNav('setting');">
             <i class="fa-solid fa-gear"></i>
         </button>
 
@@ -34,6 +34,7 @@
 
     <script src="data/bibles.js"></script>
     <script src="data/books.js"></script>
+    <script src="data/navs.js"></script>
 
     <script src="js/main.js"></script>
 
