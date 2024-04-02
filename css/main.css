@@ -100,7 +100,8 @@ html, body {
     top: 80px;
     left: 15px;
     width: calc(100% - 30px);
-    height: calc(80% - 80px);
+    height: calc(100% - 80px);
+    overflow-y: scroll;
 }
 
 td {

@@ -10,13 +10,80 @@
     font-weight: bold;
 
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+#navSetting1 {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    right: 25px;
+    top: 25px;
+    border-radius: 35px;
+    transition: .3s ease;
+
+    background: rgba(200, 200, 200, 0.7);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
 }
 
+#navSetting1Ball {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(255, 255, 255);
+    top: 2.5px;
+    left: 2.5px;
+    border-radius: 35px;
+    transition: .3s ease;
+}
+
+.navMainBookOldWrap {
+    left: 0;
+}
+
+.navMainBookNewWrap {
+    right: 0;
+}
+
+.navMainBookOldWrap, .navMainBookNewWrap {
+    position: absolute;
+    width: calc(50% - 2.5px);
+    padding-bottom: 20vh;
+}
+
+.navMainBookOld, .navMainBookNew {
+    width: 100%;
+    height: 50px;
+    border-radius: 35px;
+    margin-bottom: 5px;
+    line-height: 50px;
+    font-size: 20px;
+    color: #fcfcfc;
+    font-weight: bold;
+    text-align: center;
+    transition: .3s ease;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.selectedBook {
+    background: #fcfcfc80;
+    color: #282828;
+}
+
 @media (prefers-color-scheme: light) {
     .navSetting {
         background: rgba(76, 76, 76, 0.5);
+    }
+    .navMainBookOld, .navMainBookNew {
+        background: rgba(76, 76, 76, 0.5);
+    }
+    .selectedBook {
+        background: #fcfcfc;
     }
 }

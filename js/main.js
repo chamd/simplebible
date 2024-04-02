@@ -1,11 +1,15 @@
 const NAV = document.getElementById("nav");
+const SHOW_NAV = document.getElementById("showNav");
 const CONTENT = document.getElementById("content");
-const NAVCONTENT = document.getElementById("navContent");
+const NAV_CONTENT = document.getElementById("navContent");
 
 let nowBible = {
     book: "창",
     chapter: "1"
 }
+let settings = {
+    "1": "normal"
+};
 let contentData;
 let isNavShow = false;
 let isNavOpen = false;
@@ -20,7 +24,7 @@ let nowNavMode = "main"; // search, setting, main
 function setBible() {
     for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
         if (i == 1) {
-            contentData = "<table>"
+            contentData = `<table style="word-break: ${settings["1"]}">`;
         }
         contentData += `<tr><td><b>${i}</b></td><td>${bibles[nowBible.book][nowBible.chapter][i]}</td></tr>`;
         if (i == Object.keys(bibles[nowBible.book][nowBible.chapter]).length) {
@@ -32,13 +36,13 @@ function setBible() {
 }
 setBible();
 
-NAV.addEventListener("touchstart", e => {
+SHOW_NAV.addEventListener("touchstart", e => {
     isNavTouch = true;
     CONTENT.style.overflowY = "hidden";
     startTouchPosY = e.touches[0].clientY;
 });
 
-NAV.addEventListener("touchend", e => {
+SHOW_NAV.addEventListener("touchend", e => {
     isNavTouch = false;
     CONTENT.style.overflowY = "auto";
     if (isTouchMove && isNavOpen && isNavShow) {
@@ -49,7 +53,7 @@ NAV.addEventListener("touchend", e => {
     isTouchMove = false;
 });
 
-NAV.addEventListener("touchmove", e => {
+SHOW_NAV.addEventListener("touchmove", e => {
     if (isNavTouch && isNavShow) {
         isTouchMove = true;
         nowTouchPosY = e.touches[0].clientY;
@@ -75,8 +79,7 @@ function openNav(mode) {
     } else {
         navigator.vibrate(10);
         if (nowNavMode != mode) {
-            nowNavMode = mode;
-            NAVCONTENT.innerHTML = navs[mode];
+            setNavMode(mode);
         }
     }
 }
@@ -102,13 +105,9 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
             Object.assign(NAV.style, temp);
         }
         if (br == "0") {
-            if (nowNavMode == "main") {
-                NAVCONTENT.innerHTML = navs.main
-            } else if (nowNavMode == "setting") {
-                NAVCONTENT.innerHTML = navs.setting;
-            }
+            setNavMode();
         } else {
-            NAVCONTENT.innerHTML = '';
+            NAV_CONTENT.innerHTML = '';
         }
     } else if (ani == "moveNav") {
         document.getElementById("back").style.display = width;
@@ -126,10 +125,14 @@ function setAnimation(ani, width, heigth, left, br) { // width, height => displa
     }
 }
 
-function setBook() {
-    nowBible.book = document.getElementById("biblebk").value;
-    nowBible.chapter = document.getElementById("biblech").value;
-    setBible();
+function setBook(book) {
+    if (nowBible.book != book) {        
+        navigator.vibrate(10);
+        document.getElementById(`navMainBook${booksSN.indexOf(nowBible.book)}`).classList.remove('selectedBook');
+        nowBible.book = book;
+        document.getElementById(`navMainBook${booksSN.indexOf(nowBible.book)}`).classList.add('selectedBook');
+        setBible();
+    }
 }
 
 function setShowNav() {
@@ -137,6 +140,9 @@ function setShowNav() {
         setShowAnimation("rotate(0deg)", "rotate(0deg)", "10px", "25px", "80px", "visible", "1", "50px", "calc(100% - 30px)", "15px", "calc(100% - 95px)", true);        
     } else if (!isNavOpen) {
         setShowAnimation("rotate(-30deg)", "rotate(30deg)", "-20px", "15px", "40px", "hidden", "0", "10px", "150px", "calc(50% - 75px)", "calc(100% - 55px)", false);
+    } else if (isNavOpen && nowNavMode != "main") {
+        navigator.vibrate(10);
+        setNavMode("main");
     }
 }
 
@@ -168,16 +174,31 @@ function setShowAnimation(barRotR, barRotL, barTop, font, height, visible, opaci
     }
 }
 
-function setWordbreak(index) {
-    if (index == 1) {
-        for (let i = 0; i < document.querySelectorAll("td").length; i++) {
-            const e = document.querySelectorAll("td")[i];
-            e.style.wordBreak = "keep-all";
-        }
+function setSetting(num) {
+    navigator.vibrate(10);
+    if (settings[num] == "normal") {
+        document.querySelector("table").style.wordBreak = "keep-all";
+        document.getElementById(`navSetting${num}`).style.background = "rgba(0, 255, 0, 0.7)";
+        document.getElementById(`navSetting${num}Ball`).style.left = "32.5px";    
+        settings[num] = "keep-all";
     } else {
-        for (let i = 0; i < document.querySelectorAll("td").length; i++) {
-            const e = document.querySelectorAll("td")[i];
-            e.style.wordBreak = "normal";
-        }
+        document.querySelector("table").style.wordBreak = "normal";
+        document.getElementById(`navSetting${num}`).style.background = "rgba(200, 200, 200, 0.7)";
+        document.getElementById(`navSetting${num}Ball`).style.left = "2.5px";    
+        settings[num] = "normal";
+    }
+}
+
+function setNavMode(mode = nowNavMode) {
+    nowNavMode = mode;
+    NAV_CONTENT.innerHTML = navs[mode];
+
+    if (mode == "setting" && settings["1"] == "keep-all") {                
+        document.getElementById(`navSetting1`).style.background = "rgba(0, 255, 0, 0.7)";
+        document.getElementById(`navSetting1Ball`).style.left = "32.5px";    
+    }
+
+    if (mode == "main") {
+        document.getElementById(`navMainBook${booksSN.indexOf(nowBible.book)}`).classList.add('selectedBook');
     }
 }

@@ -1,8 +1,8 @@
 {
     "name": "Simple Bible",
     "short_name": "Bible",
-    "theme_color": "#4c4c4c",
-    "background_color": "#4c4c4c",
+    "theme_color": "#282828",
+    "background_color": "#282828",
     "display": "standalone",
     "orientation": "portrait",
     "scope": "/",
