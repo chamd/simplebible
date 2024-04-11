@@ -1,7 +1,4 @@
-let mainContent = `
-<div class="navMainNav">
-</div>
-`;
+let mainContent = ``;
 for (let i = 0; i < 39; i++) {
     if (i == 0) {
         mainContent += `<div class="navMainBookOldWrap">`;
@@ -20,13 +17,16 @@ for (let i = 39; i < booksLN.length; i++) {
         mainContent += `</div>`;
     }
 }
-// <input id=\"biblebk\"><br>
-// <input id=\"biblech\"><br>
-// <button onclick=\"setBook();\">GO</button>
 
 let navs = {
     main: `
     ${mainContent}
+    `,
+
+    mainChapter: `
+    <div id="chapterDial"></div>
+    <div id="verseDial"></div>
+    <button id="setChapterVerse" onclick="setChapterVerse();">이동</button>
     `,
 
     setting: `

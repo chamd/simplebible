@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfcfc">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#282828">
     <title>Simple Bible</title>
@@ -19,13 +19,19 @@
         <div id="navBarR"></div>
         <div id="navBarL"></div>
         
-        <div id="showNav" onclick="setShowNav();"></div>
+        <div id="showNav" onclick="setShowNav();">
+            <span id="selectedTitleBook" onclick="selectTitle('Book')"></span>
+            <span id="selectedTitleChapter" onclick="selectTitle('Chapter')"></span>
+        </div>
 
         <button id="navSearch" onclick="openNav('search');">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
-        <div id="navTitle"></div>
+        <!-- <div id="navTitle">
+            <span id="selectedTitleBook" onclick="selectedTitle('Book')"></span>
+            <span id="selectedTitleChapter" onclick="selectedTitle('Chapter')"></span>
+        </div> -->
 
         <button id="navSetting" onclick="openNav('setting');">
             <i class="fa-solid fa-gear"></i>

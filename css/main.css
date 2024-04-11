@@ -23,11 +23,12 @@ html, body {
     left: calc(50% - 75px);
     top: calc(100% - 55px);
     border-radius: 35px;
+    font-family: 'nanumSQ';
 
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
 }
 
 #navBarR, #navBarL {
@@ -56,15 +57,9 @@ html, body {
     width: 100%;
     height: 80px;
     border-radius: 35px;
-}
-
-#navTitle {
-    font-size: 15px;
-    line-height: 40px;
-    color: white;
-    font-weight: bold;
+    color: #fcfcfc;
     text-align: center;
-    transition: .3s;
+    font-family: 'nanumSQb';
 }
 
 #navSetting, #navSearch {
@@ -84,7 +79,7 @@ html, body {
 }
 
 #navSetting:active, #navSearch:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 #navSetting {
@@ -102,6 +97,10 @@ html, body {
     width: calc(100% - 30px);
     height: calc(100% - 80px);
     overflow-y: scroll;
+}
+
+#navContent::-webkit-scrollbar {
+    display: none;
 }
 
 td {
@@ -122,6 +121,11 @@ td {
     src: url('../font/NanumSquareNeo-bRg.ttf');
 }
 
+@font-face {
+    font-family: 'nanumSQB';
+    src: url('../font/NanumSquareNeo-dEb.ttf');
+}
+
 @media (prefers-color-scheme: light) {
     body {
         background-color: #fcfcfc;
@@ -138,7 +142,7 @@ td {
     #navBarL {
         background-color: #4c4c4c;
     }
-    #navTitle {
+    #showNav {
         color: #4c4c4c;
     }
 }
