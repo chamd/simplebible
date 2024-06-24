@@ -159,3 +159,123 @@
         background: rgba(76, 76, 76, 0.5);
     }
 }
+
+.noPlusChapter {
+    animation: noPlusChapter .3s infinite; 
+}
+
+.noMinusChapter {
+    animation: noMinusChapter .3s infinite; 
+}
+
+@keyframes noPlusChapter {
+    0% {
+        transform: translateX(0px);
+    }
+    40% {
+        transform: translateX(-10px);
+    }
+    80% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0px);
+    }    
+}
+
+@keyframes noMinusChapter {
+    0% {
+        transform: translateX(0px);
+    }
+    40% {
+        transform: translateX(10px);
+    }
+    80% {
+        transform: translateX(-2px);
+    }
+    100% {
+        transform: translateX(0px);
+    }    
+}
+
+#searchInput {
+    position: fixed;
+    width: calc(100% - 90px);
+    height: 50px;
+    left: 15px;
+    padding: 0px 10px;
+    padding-left: 50px;
+    border: none;
+    border-radius: 35px;
+    transition: .3s ease;
+    color: #fcfcfc;
+    font-size: 20px;
+    font-family: 'nanumSQ';
+    z-index: 0;
+
+    background: rgba(30, 30, 30, 0.5);
+}
+
+#searchInput:focus {
+    outline: none;
+    box-shadow: #fcfcfc 0px 0px 0px 3px inset;
+    /* transform: scale(1.05); */
+}
+
+#searchForm i {
+    position: fixed;
+    color: #fcfcfc;
+    font-size: 20px;
+    z-index: 1;
+    /* top: 15px; */
+    /* left: 15px; */
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+/* #searchNav {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    max-height: 305px;
+    border-radius: 30px;
+    border: none;
+    right: 15px;
+    background: #fcfcfc;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    color: #282828;
+    font-size: 20px;
+    transform: scale(0);
+    font-family: 'nanumSQB';
+    text-align: center;
+    line-height: 50px;
+    transition: .3s ease;
+    overflow-y: scroll;
+    box-shadow: #fcfcfc 0px 0px 0px 3px;
+} */
+
+/* .searchNavButtons:first-child {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.searchNavButtons:last-child {
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.searchNavButtons {
+    width: 100%;
+    height: 50px;
+    border-radius: 35px;
+    margin: 2px 0px;
+    border: none;
+    line-height: 50px;
+    font-size: 20px;
+    color: #282828;
+    text-align: center;
+    font-family: "nanumSQb";
+
+    background: #fcfcfc;
+    background: rgba(30, 30, 30, 0.5);
+} */

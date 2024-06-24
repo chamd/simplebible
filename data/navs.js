@@ -41,6 +41,11 @@ let navs = {
     `,
 
     search: `
-
+    <form id="searchForm" autocomplete="off" onsubmit="searchBible(event, this)">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput">
+    </form>
+    <div id="searchContent"></div>
     `
+    // <div id="searchNav" bookname="창" onclick="openSearchNav(this.getAttribute('bookname'));"></div>
 }

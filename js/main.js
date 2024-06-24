@@ -22,6 +22,12 @@ let startNavPos = NAV.getBoundingClientRect().top;
 let nowNavPos;
 let nowNavMode = "main"; // search, setting, main
 let selectedTitle = "none"; // Book, Chapter, none
+let touchTime = [0, 0, 0];
+let touchPos = [0, 0, 0];
+let dialBible = {
+    chapter: 1,
+    verse: 1
+};
 
 function setBible() {
     for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
@@ -45,15 +51,27 @@ setBible();
 
 SHOW_NAV.addEventListener("touchstart", e => {
     isNavTouch = true;
-    CONTENT.style.overflowY = "hidden";
+    // CONTENT.style.overflowY = "hidden";
     startTouchPosY = e.touches[0].clientY;
+    if(isNavShow) {
+        touchTime[1] = new Date().getTime();
+        touchPos[1] = NAV.getBoundingClientRect().top;
+    }
 });
 
 SHOW_NAV.addEventListener("touchend", e => {
     isNavTouch = false;
-    CONTENT.style.overflowY = "auto";
+    // CONTENT.style.overflowY = "auto";
     if (isTouchMove && isNavOpen && isNavShow) {
-        setAnimation("moveNav", "block", "20%");
+        touchTime[2] = new Date().getTime();
+        touchTime[0] = touchTime[2] - touchTime[1];
+        touchPos[2] = NAV.getBoundingClientRect().top;
+        touchPos[0] = touchPos[2] - touchPos[1];
+        if (touchPos[0] > 100 && touchTime[0] < 200) {
+            closeNav();
+        } else {
+            setAnimation("moveNav", "block", "20%");
+        }
     } else if (isTouchMove && isNavShow) {
         setAnimation("moveNav", "none", "calc(100% - 95px)");
     }
@@ -65,6 +83,7 @@ SHOW_NAV.addEventListener("touchmove", e => {
         isTouchMove = true;
         nowTouchPosY = e.touches[0].clientY;
         nowNavPos = NAV.getBoundingClientRect().top;        
+        NAV.style.top = `clamp(0%, ${startNavPos - (startTouchPosY - nowTouchPosY)}px, calc(100% - 80px))`;     
         NAV.style.top = `clamp(0%, ${startNavPos - (startTouchPosY - nowTouchPosY)}px, calc(100% - 80px))`;     
         if (document.body.clientHeight - nowNavPos >= 200 && !isNavOpen) {
             nowNavMode = "main";
@@ -232,10 +251,9 @@ function setNavMode(mode = nowNavMode) {
             let nowChapterNum = 0;
             let chapterDialNumberI = num => {
                 return document.getElementById(`chapterDialNumber${num + 1}`);
-            }
-
+            } 
             chapterDialNumberI(nowBible.chapter - 2).scrollIntoView();
-            nowBible.verse = 1;
+            dialBible.verse = 1;
 
             chapterDial.addEventListener("scroll", e => {
                 if (nowChapterNum != Math.round((chapterDial.scrollTop / (chapterDial.scrollHeight - 300)) * (Object.keys(bibles[nowBible.book]).length - 1))) {
@@ -246,7 +264,7 @@ function setNavMode(mode = nowNavMode) {
                     chapterDialNumberI(nowChapterNum).style.fontFamily = "nanumSQb";
                     vibrateInAndroid(2);
 
-                    nowBible.chapter = nowChapterNum + 1;
+                    dialBible.chapter = nowChapterNum + 1;
                     setVerseDial(verseDial);
                     nowVerseNum = 1;
                 }
@@ -261,14 +279,14 @@ function setNavMode(mode = nowNavMode) {
             }
 
             verseDial.addEventListener("scroll", e => {
-                if (nowVerseNum != Math.round((verseDial.scrollTop / (verseDial.scrollHeight - 300)) * (Object.keys(bibles[nowBible.book][nowBible.chapter]).length - 1))) {
+                if (nowVerseNum != Math.round((verseDial.scrollTop / (verseDial.scrollHeight - 300)) * (Object.keys(bibles[nowBible.book][dialBible.chapter]).length - 1))) {
                     verseDialNumberI(nowVerseNum).style.color = "#c0c0c0";
                     verseDialNumberI(nowVerseNum).style.fontFamily = "nanumSQ";
-                    nowVerseNum = Math.round((verseDial.scrollTop / (verseDial.scrollHeight - 300)) * (Object.keys(bibles[nowBible.book][nowBible.chapter]).length - 1));
+                    nowVerseNum = Math.round((verseDial.scrollTop / (verseDial.scrollHeight - 300)) * (Object.keys(bibles[nowBible.book][dialBible.chapter]).length - 1));
                     verseDialNumberI(nowVerseNum).style.color = "#fcfcfc";
                     verseDialNumberI(nowVerseNum).style.fontFamily = "nanumSQb";
                     vibrateInAndroid(2);
-                    nowBible.verse = nowVerseNum + 1;
+                    dialBible.verse = nowVerseNum + 1;
                 }
             });
         }
@@ -282,10 +300,10 @@ function setNavMode(mode = nowNavMode) {
 function setVerseDial(verseDial) {
     verseDial.scrollTo(0, 0);
     let verseDialContent = `<div id="verseDialNumber0" class="verseDialNumbers"></div>`;
-    for (let i = 1; i <= Object.keys(bibles[nowBible.book][nowBible.chapter]).length; i++) {
+    for (let i = 1; i <= Object.keys(bibles[nowBible.book][dialBible.chapter]).length; i++) {
         verseDialContent += `<div id="verseDialNumber${i}" class="verseDialNumbers">${i}</div>`;
     }
-    verseDialContent += `<div id="verseDialNumber${Object.keys(bibles[nowBible.book][nowBible.chapter]).length}" class="verseDialNumbers"></div>`;
+    verseDialContent += `<div id="verseDialNumber${Object.keys(bibles[nowBible.book][dialBible.chapter]).length}" class="verseDialNumbers"></div>`;
     verseDial.innerHTML = verseDialContent;
 }
 
@@ -302,6 +320,8 @@ function selectTitle(title) {
 }
 
 function setChapterVerse() {
+    nowBible.chapter = dialBible.chapter;
+    nowBible.verse = dialBible.verse;
     setBible();
     vibrateInAndroid(5);
     document.querySelectorAll("tr")[nowBible.verse - 1].scrollIntoView({ behavior: "smooth" });
