@@ -14,5 +14,8 @@
   "routes": [
     { "src": "/api/(.*)", "dest": "api/openai.js" },
     { "src": "/(.*)", "dest": "/public/$1" }
-  ]
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@OPENAI_API_KEY"
+  }
 }
