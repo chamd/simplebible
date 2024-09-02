@@ -3,10 +3,15 @@
 	"short_name": "Bible",
 	"description": "Simple Bible",
 	"start_url": "/index.html",
-	"display": "fullscreen",
+	"display": "standalone",
 	"background_color": "#282828",
 	"theme_color": "#282828",
 	"icons": [
+		{
+			"src": "/icon/icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
 		{
 			"src": "/icon/icon-192x192.png",
 			"sizes": "192x192",
