@@ -1,0 +1,190 @@
+.navMainBookOldWrap {
+  left: 0;
+}
+
+.navMainBookNewWrap {
+  right: 0;
+}
+
+.navMainBookOldWrap,
+.navMainBookNewWrap {
+  position: absolute;
+  width: calc(50% - 2.5px);
+  overflow: auto;
+  height: 100%;
+  scrollbar-width: none;
+}
+
+.navMainBookOld,
+.navMainBookNew {
+  width: 100%;
+  height: 50px;
+  border-radius: 35px;
+  margin-bottom: 5px;
+  line-height: 50px;
+  font-size: 20px;
+  color: #fcfcfc;
+  text-align: center;
+  transition: .3s ease;
+  font-family: "nanumSQb";
+
+  background: rgba(30, 30, 30, 0.5);
+}
+
+.navMainBookOld:last-child,
+.navMainBookNew:last-child {
+  margin-bottom: calc(20vh + 5px);
+}
+
+.selectedBook {
+  background: #fcfcfc;
+  color: #282828;
+}
+
+#selectedTitleBook,
+#selectedTitleChapter {
+  transition: .3s ease;
+  font-size: 15px;
+  line-height: 40px;
+}
+
+.selectedTitle {
+  border-radius: 35px;
+  padding: 5px 10px;
+
+  background: #282828;
+}
+
+#chapterDial,
+#verseDial {
+  position: absolute;
+  width: 100px;
+  height: 300px;
+  overflow-y: auto;
+  text-align: center;
+  font-size: 40px;
+  scroll-snap-type: y mandatory;
+  scroll-padding: 0 0;
+  color: #c0c0c0;
+  border-radius: 35px;
+  background-color: rgba(30, 30, 30, 0.5);
+}
+
+#chapterDial {
+  left: calc(50% - 105px);
+}
+
+#verseDial {
+  right: calc(50% - 105px);
+}
+
+#chapterDial::-webkit-scrollbar,
+#verseDial::-webkit-scrollbar {
+  display: none;
+}
+
+.chapterDialNumbers,
+.verseDialNumbers {
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  scroll-snap-align: center;
+}
+
+#chapterDialNumber1,
+#verseDialNumber1 {
+  color: #fcfcfc;
+  font-family: "nanumSQb";
+}
+
+#setChapterVerse {
+  position: absolute;
+  width: 210px;
+  height: 50px;
+  top: 310px;
+  left: calc(50% - 105px);
+  border-radius: 35px;
+  border: none;
+  background-color: #fcfcfc;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  color: #282828;
+  font-size: 25px;
+  transition: .1s ease;
+  font-family: "nanumSQb";
+}
+
+#setChapterVerse:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+/* @media (prefers-color-scheme: light) {
+  .navSetting {
+    background: rgba(76, 76, 76, 0.5);
+  }
+
+  .navMainBookOld,
+  .navMainBookNew {
+    background: rgba(76, 76, 76, 0.5);
+  }
+
+  .selectedBook {
+    background: #fcfcfc;
+  }
+
+  .selectedTitle {
+    background: #4c4c4c;
+    color: #fcfcfc;
+  }
+
+  #chapterDial,
+  #verseDial {
+    background: rgba(76, 76, 76, 0.5);
+  }
+} */
+
+.noPlusChapter {
+  animation: noPlusChapter .3s infinite;
+}
+
+.noMinusChapter {
+  animation: noMinusChapter .3s infinite;
+}
+
+@keyframes noPlusChapter {
+  0% {
+    transform: translateX(0px);
+  }
+
+  40% {
+    transform: translateX(-10px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes noMinusChapter {
+  0% {
+    transform: translateX(0px);
+  }
+
+  40% {
+    transform: translateX(10px);
+  }
+
+  80% {
+    transform: translateX(-2px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+

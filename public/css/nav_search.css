@@ -1,0 +1,172 @@
+#searchInput {
+  position: fixed;
+  width: calc(100% - 30px);
+  height: 50px;
+  left: 15px;
+  padding: 0px 50px;
+  border: none;
+  border-radius: 35px;
+  transition: .3s ease;
+  color: #fcfcfc;
+  font-size: 20px;
+  font-family: 'nanumSQ';
+  z-index: 1;
+  background: rgba(30, 30, 30, 0.5);
+}
+
+#searchInput.searchScroll {
+  border-bottom: 1px solid rgb(100, 100, 100);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0px;
+  left: 0;
+  width: 100%;  
+}
+
+#searchInput:focus {
+  outline: none;
+  border-radius: 0px;
+  left: 0;
+  width: 100%;
+}
+
+#searchInput:focus ~ #searchIcon {
+  color: #fbc956;
+  left: 0px;
+}
+
+#searchInput:focus ~ #searchSetTypeButton {
+  margin-right: -15px;
+}
+
+#searchForm i {
+  position: absolute;
+  color: #fcfcfc;
+  font-size: 20px;
+  z-index: 2;
+}
+
+#searchForm #searchIcon {
+  top: 15px;
+  left: 15px;
+  transition: .3s ease;
+}
+
+#searchForm #searchSetTypeButton #searchWordIcon,
+#searchForm #searchSetTypeButton #searchDetailIcon {
+  top: 15px;
+  right: 30px;
+}
+
+#searchForm #searchSetTypeButton #searchDetailIcon {
+  display: none;
+}
+
+#searchForm #searchSetTypeButton .searchTypeDropdownIcon {
+  position: absolute;
+  z-index: 2;
+  color: #fcfcfc;
+  font-size: 10px;
+  top: 20px;
+  right: 15px;
+}
+
+#searchForm #searchSetTypeButton {
+  right: 0px;
+  position: absolute;
+  width: 65px;
+  height: 50px;
+  border-radius: 35px;
+  transition: .3s ease;
+}
+
+#searchForm #searchTypeDropdown {
+  position: absolute;
+  display: none;
+  background-color: #4a4a4acc;
+  backdrop-filter: blur(10px);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  width: 180px;
+  height: 100px;
+  z-index: 2;
+  border-radius: 25px;
+  right: 0px;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: top right;
+  transition: transform .2s, opacity .2s;
+}
+
+#searchForm #searchTypeDropdown div {
+  color: #fcfcfc;
+  width: calc(100% - 20px);
+  height: 50px;
+  margin-left: 10px;
+  line-height: 50px;
+  text-align: right;
+  padding-right: 40px;
+  font-size: 20px;
+}
+
+#searchForm #searchTypeDropdown div:first-child {
+  border-bottom: 1px solid #fcfcfc;
+}
+
+#searchForm #searchTypeDropdown div:last-child {
+  border-top: 1px solid #fcfcfc;
+}
+
+#searchForm #searchTypeDropdown div i {
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+#searchForm #searchTypeDropdownBack {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#searchContent {
+  z-index: 0;
+  position: absolute;
+  overflow: scroll;
+  height: calc(100%);
+  top: 50px;
+  padding-top: 10px;
+  /* border-radius: 35px; */
+  scrollbar-width: none;
+}
+
+#searchContent .searchVerse {
+  width: auto;
+  background: rgba(30, 30, 30, 0.5);
+  color: #fcfcfc;
+  font-size: 20px;
+  font-family: 'nanumSQ';
+  padding: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 10px;
+  border-radius: 25px;
+}
+
+#searchContent .searchVerse:last-child {
+  margin-bottom: calc(20vh + 60px);
+}
+
+#searchContent .searchVerse .searchFindWord {
+  color: #000000;
+  background-color: #fbc956;
+  font-family: 'nanumSQB';
+}
+
+#searchContent .searchVerse .searchPath {
+  position: absolute;
+  margin-top: 0px;
+  right: 20px;
+  font-size: 15px;
+  color: #fbc956;
+}

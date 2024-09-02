@@ -1,0 +1,92 @@
+html,
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #282828;
+	font-family: 'nanumSQ';
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+#content {
+	color: #fcfcfc;
+	font-size: 20px;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	padding: 10px;
+}
+
+td {
+	/* word-break: keep-all; */
+	padding: 10px 5px;
+	vertical-align: top;
+}
+
+#back {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.pageAnimation {
+	position: absolute;
+	background-color: #282828;
+	color: #fcfcfc;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	overflow-y: auto;
+	padding: 10px;
+	transition: .3s ease;
+}
+
+@font-face {
+	font-family: 'nanumSQ';
+	/* src: url('../font/NanumSquareNeo-bRg.ttf'); */
+	src: url("../font/Pretendard-Regular.ttf")
+}
+
+@font-face {
+	font-family: 'nanumSQB';
+	/* src: url('../font/NanumSquareNeo-dEb.ttf'); */
+	src: url("../font/Pretendard-Bold.ttf")
+}
+/* 
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: #fcfcfc;
+	}
+
+	#content {
+		color: #282828;
+	}
+
+	#nav {
+		background: rgba(200, 200, 200, 0.5);
+	}
+
+	#navBarR {
+		background-color: #4c4c4c;
+	}
+
+	#navBarL {
+		background-color: #4c4c4c;
+	}
+
+	#showNav {
+		color: #4c4c4c;
+	}
+
+	.pageAnimation {
+		background-color: #fcfcfc;
+		color: #282828;
+	}
+} */
