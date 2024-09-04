@@ -134,7 +134,7 @@ function setSearchType(type) {
 }
 
 function searchScroll(element) {
-	if (element.scrollTop != 0) {
+	if (element.scrollTop > 0) {
 		document.getElementById("searchInput").classList.add("searchScroll");
 		document.getElementById("searchSetTypeButton").style.marginRight = "-15px";
 		document.getElementById("searchIcon").style.left = "0px";

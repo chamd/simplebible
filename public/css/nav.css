@@ -73,6 +73,14 @@
 							opacity .3s ease;
 }
 
+#navSetting i,
+#navSearch i {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
 #navSetting:active,
 #navSearch:active {
 	transform: scale(0.98);

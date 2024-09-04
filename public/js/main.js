@@ -384,6 +384,11 @@ function setNavMode(mode = nowNavMode) {
 						(chapterDial.scrollTop / (chapterDial.scrollHeight - 300)) *
 							(Object.keys(bibles[nowBible.book]).length - 1)
 					);
+					if (nowChapterNum >= Object.keys(bibles[nowBible.book]).length) {
+						nowChapterNum = Object.keys(bibles[nowBible.book]).length - 1;
+					} else if (nowChapterNum <= 0) {
+						nowChapterNum = 0;
+					}
 					chapterDialNumberI(nowChapterNum).style.color = "#fcfcfc";
 					chapterDialNumberI(nowChapterNum).style.fontFamily = "nanumSQb";
 					vibrateInAndroid(2);
@@ -419,6 +424,11 @@ function setNavMode(mode = nowNavMode) {
 						(verseDial.scrollTop / (verseDial.scrollHeight - 300)) *
 							(Object.keys(bibles[nowBible.book][dialBible.chapter]).length - 1)
 					);
+					if (nowVerseNum >= Object.keys(bibles[nowBible.book][dialBible.chapter]).length) {
+						nowVerseNum = Object.keys(bibles[nowBible.book][dialBible.chapter]).length - 1;
+					} else if (nowVerseNum <= 0) {
+						nowVerseNum = 0;
+					}
 					verseDialNumberI(nowVerseNum).style.color = "#fcfcfc";
 					verseDialNumberI(nowVerseNum).style.fontFamily = "nanumSQb";
 					vibrateInAndroid(2);
